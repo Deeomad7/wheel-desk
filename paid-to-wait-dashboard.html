@@ -183,7 +183,32 @@ body{background:var(--bg);color:var(--text);font:15px/1.45 -apple-system,BlinkMa
       </div>
     </div>
 
-    <div class="secttl"><span>Returns — realized P&amp;L by window (wheel premium + share legs + long, close date)</span></div>
+        <div class="secttl"><span>Returns — Robinhood-style · wheel premium realized by window</span></div>
+    <div class="tfbar" role="tablist" aria-label="Timeframe">
+      <button id="tf1D" onclick="setW('1D')">1D</button>
+      <button id="tf1W" class="on" onclick="setW('1W')">1W</button>
+      <button id="tf1M" onclick="setW('1M')">1M</button>
+      <button id="tf3M" onclick="setW('3M')">3M</button>
+      <button id="tfYTD" onclick="setW('YTD')">YTD</button>
+      <button id="tf1Y" onclick="setW('1Y')">1Y</button>
+      <button id="tfALL" onclick="setW('ALL')">ALL</button>
+    </div>
+    <div class="range" id="range"></div>
+
+    <div class="stats">
+      <div class="stat"><div class="lbl">Premium realized</div><div class="val mono" id="sReal"></div><div class="sub" id="sRealSub"></div></div>
+      <div class="stat"><div class="lbl">New premium opened</div><div class="val mono opn" id="sOpen"></div><div class="sub" id="sOpenSub"></div></div>
+      <div class="stat"><div class="lbl">Avg % of max captured</div><div class="val mono" id="sRoi"></div><div class="sub">on early closes</div></div>
+      <div class="stat"><div class="lbl">Win rate</div><div class="val mono" id="sWin"></div><div class="sub" id="sWinSub"></div></div>
+    </div>
+
+    <div class="cols">
+      <div class="card"><h3>Closed early <span class="n" id="nClosed"></span></h3><div class="list" id="listClosed"></div></div>
+      <div class="card"><h3>Expired / Assigned <span class="n" id="nExp"></span></h3><div class="list" id="listExp"></div></div>
+      <div class="card"><h3>STOs opened <span class="n" id="nNew"></span></h3><div class="list" id="listNew"></div></div>
+    </div>
+
+<div class="secttl"><span>Returns — realized P&amp;L by window (wheel premium + share legs + long, close date)</span></div>
     <div class="tfchips"><div class="tfchip"><div class="k">1D realized</div><div class="v mono ">+$0</div></div><div class="tfchip"><div class="k">1W realized</div><div class="v mono pos">+$673</div></div><div class="tfchip"><div class="k">1M realized</div><div class="v mono pos">+$10,153</div></div><div class="tfchip"><div class="k">3M realized</div><div class="v mono pos">+$19,422</div></div><div class="tfchip"><div class="k">YTD realized</div><div class="v mono pos">+$46,575</div></div><div class="tfchip"><div class="k">ALL realized</div><div class="v mono pos">+$61,813</div></div></div>
 
     <div class="secttl"><span>By sleeve</span></div>
@@ -218,31 +243,6 @@ body{background:var(--bg);color:var(--text);font:15px/1.45 -apple-system,BlinkMa
     <div class="openbox" style="margin-bottom:10px"><div class="mrow"><div class="l"><span class="sym">NVDA<span class="acct">T</span></span><div class="det">$197.5P assigned 11/07 &rarr; $210C called away 08/21 &middot; 287d &middot; put +$207 &middot; shares +$1,250 &middot; interim CCs +$2,440 &middot; exit call +$227</div></div><div class="r"><span class="gpct">+20.9% &middot; 27% ann.</span><span class="pl mono pos">+$4,124</span></div></div><div class="mrow"><div class="l"><span class="sym">CRDO<span class="acct">R</span></span><div class="det">$220P assigned 07/31 &rarr; $240C called away 08/14 &middot; 14d &middot; put +$1,300 &middot; shares +$2,000 &middot; interim CCs +$0 &middot; exit call +$900</div></div><div class="r"><span class="gpct">+19.1% &middot; 498% ann.</span><span class="pl mono pos">+$4,200</span></div></div><div class="mrow"><div class="l"><span class="sym">CRDO<span class="acct">R</span></span><div class="det">$200P assigned 05/15 &rarr; $200C called away 06/18 &middot; 34d &middot; put +$620 &middot; shares +$0 &middot; interim CCs -$1,298 &middot; exit call +$1,848</div></div><div class="r"><span class="gpct">+5.9% &middot; 63% ann.</span><span class="pl mono pos">+$1,170</span></div></div><div class="mrow"><div class="l"><span class="sym">TSLA<span class="acct">R</span></span><div class="det">$470P assigned 11/07 &rarr; $380C called away 05/08 &middot; 182d &middot; put +$1,340 &middot; shares -$9,000 &middot; interim CCs +$5,352 &middot; exit call +$880</div></div><div class="r"><span class="gpct">-3.0% &middot; -6% ann.</span><span class="pl mono neg">-$1,428</span></div></div><div class="mrow"><div class="l"><span class="sym">CLS<span class="acct">R</span></span><div class="det">$290P assigned 02/13 &rarr; $310C called away 04/24 &middot; 70d &middot; put +$650 &middot; shares +$2,000 &middot; interim CCs +$1,725 &middot; exit call +$600</div></div><div class="r"><span class="gpct">+17.2% &middot; 89% ann.</span><span class="pl mono pos">+$4,975</span></div></div><div class="mrow"><div class="l"><span class="sym">TSLA<span class="acct">R</span></span><div class="det">$450P assigned 11/07 &rarr; $445C called away 12/12 &middot; 35d &middot; put +$1,065 &middot; shares -$500 &middot; interim CCs +$900 &middot; exit call +$900</div></div><div class="r"><span class="gpct">+5.3% &middot; 55% ann.</span><span class="pl mono pos">+$2,365</span></div></div></div>
     <div class="secttl"><span>Wheel share legs (strike-to-strike)</span><span class="mono neg" style="text-transform:none;letter-spacing:0">-$4,250 realized</span></div>
     <div class="openbox" style="margin-bottom:10px"><div class="mrow"><div class="l"><span class="sym">NVDA<span class="acct">T</span></span><div class="det">100 sh &middot; $197.5P assigned 11/07 &rarr; $210C called away 08/21 &middot; strike-to-strike</div></div><div class="r"><span class="gpct">+6.3%</span><span class="pl mono pos">+$1,250</span></div></div><div class="mrow"><div class="l"><span class="sym">CRDO<span class="acct">R</span></span><div class="det">100 sh &middot; $220P assigned 07/31 &rarr; $240C called away 08/14 &middot; strike-to-strike</div></div><div class="r"><span class="gpct">+9.1%</span><span class="pl mono pos">+$2,000</span></div></div><div class="mrow"><div class="l"><span class="sym">CRDO<span class="acct">R</span></span><div class="det">100 sh &middot; $200P assigned 05/15 &rarr; $200C called away 06/18 &middot; strike-to-strike</div></div><div class="r"><span class="gpct">+0.0%</span><span class="pl mono ">+$0</span></div></div><div class="mrow"><div class="l"><span class="sym">TSLA<span class="acct">R</span></span><div class="det">100 sh &middot; $470P assigned 11/07 &rarr; $380C called away 05/08 &middot; strike-to-strike</div></div><div class="r"><span class="gpct">-19.1%</span><span class="pl mono neg">-$9,000</span></div></div><div class="mrow"><div class="l"><span class="sym">CLS<span class="acct">R</span></span><div class="det">100 sh &middot; $290P assigned 02/13 &rarr; $310C called away 04/24 &middot; strike-to-strike</div></div><div class="r"><span class="gpct">+6.9%</span><span class="pl mono pos">+$2,000</span></div></div><div class="mrow"><div class="l"><span class="sym">TSLA<span class="acct">R</span></span><div class="det">100 sh &middot; $450P assigned 11/07 &rarr; $445C called away 12/12 &middot; strike-to-strike</div></div><div class="r"><span class="gpct">-1.1%</span><span class="pl mono neg">-$500</span></div></div></div>
-
-    <div class="secttl"><span>Activity</span></div>
-    <div class="tfbar" role="tablist" aria-label="Timeframe">
-      <button id="tf1D" onclick="setW('1D')">1D</button>
-      <button id="tf1W" class="on" onclick="setW('1W')">1W</button>
-      <button id="tf1M" onclick="setW('1M')">1M</button>
-      <button id="tf3M" onclick="setW('3M')">3M</button>
-      <button id="tfYTD" onclick="setW('YTD')">YTD</button>
-      <button id="tf1Y" onclick="setW('1Y')">1Y</button>
-      <button id="tfALL" onclick="setW('ALL')">ALL</button>
-    </div>
-    <div class="range" id="range"></div>
-
-    <div class="stats">
-      <div class="stat"><div class="lbl">Premium realized</div><div class="val mono" id="sReal"></div><div class="sub" id="sRealSub"></div></div>
-      <div class="stat"><div class="lbl">New premium opened</div><div class="val mono opn" id="sOpen"></div><div class="sub" id="sOpenSub"></div></div>
-      <div class="stat"><div class="lbl">Avg % of max captured</div><div class="val mono" id="sRoi"></div><div class="sub">on early closes</div></div>
-      <div class="stat"><div class="lbl">Win rate</div><div class="val mono" id="sWin"></div><div class="sub" id="sWinSub"></div></div>
-    </div>
-
-    <div class="cols">
-      <div class="card"><h3>Closed early <span class="n" id="nClosed"></span></h3><div class="list" id="listClosed"></div></div>
-      <div class="card"><h3>Expired / Assigned <span class="n" id="nExp"></span></h3><div class="list" id="listExp"></div></div>
-      <div class="card"><h3>STOs opened <span class="n" id="nNew"></span></h3><div class="list" id="listNew"></div></div>
-    </div>
 
     <div class="secttl"><span>Month by month — tap a month for every round</span><span class="mono pos" style="text-transform:none;letter-spacing:0">$55,197 premium all-time</span></div>
     <div class="colhdr"><span>Month</span><span>Wheel premium</span><span style="text-align:right">Wheel $</span><span>Rounds · WR</span><span>Long</span><span>Combined</span><span>Bogey</span><span></span></div>
